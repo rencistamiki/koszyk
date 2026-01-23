@@ -168,6 +168,80 @@ header {
 
 <main class="container">
 
-<sect
+<section id="products" class="products">
+  <div class="product">
+    <h3>Bluza</h3>
+    <div class="price">120 zł</div>
+    <button onclick="addToCart('Bluza',120)">Dodaj do koszyka</button>
+  </div>
 
+  <div class="product">
+    <h3>Pasek</h3>
+    <div class="price">40 zł</div>
+    <button onclick="addToCart('Pasek',40)">Dodaj do koszyka</button>
+  </div>
 
+  <div class="product">
+    <h3>Zapalniczka Zippo</h3>
+    <div class="price">90 zł</div>
+    <button onclick="addToCart('Zapalniczka Zippo',90)">Dodaj do koszyka</button>
+  </div>
+
+  <div class="product">
+    <h3>Rękawiczki</h3>
+    <div class="price">35 zł</div>
+    <button onclick="addToCart('Rękawiczki',35)">Dodaj do koszyka</button>
+  </div>
+</section>
+
+<section class="cart">
+  <h3>Koszyk</h3>
+  <div id="cart"></div>
+</section>
+
+</main>
+
+<script>
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+function addToCart(name, price) {
+  const item = cart.find(i => i.name === name);
+  if (item) item.qty++;
+  else cart.push({ name, price, qty: 1 });
+  save();
+}
+
+function removeItem(name) {
+  cart = cart.filter(i => i.name !== name);
+  save();
+}
+
+function save() {
+  localStorage.setItem('cart', JSON.stringify(cart));
+  render();
+}
+
+function render() {
+  const el = document.getElementById('cart');
+  el.innerHTML = '';
+
+  if (cart.length === 0) {
+    el.innerHTML = '<div class="empty">Koszyk jest pusty</div>';
+    return;
+  }
+
+  cart.forEach(i => {
+    el.innerHTML += `
+      <div class="cart-item">
+        <span>${i.name} (${i.qty}x)</span>
+        <button class="remove" onclick="removeItem('${i.name}')">Usuń</button>
+      </div>
+    `;
+  });
+}
+
+render();
+</script>
+
+</body>
+</html>
