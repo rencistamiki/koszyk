@@ -6,47 +6,111 @@
 
 <style>
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #f5f6fa;
   padding: 20px;
 }
 
-.product, .cart-item {
-  border: 1px solid #ccc;
-  padding: 10px;
-  margin-bottom: 10px;
+h2 {
+  margin-top: 30px;
 }
 
-button {
-  padding: 5px 10px;
+.container {
+  max-width: 800px;
+  margin: auto;
+}
+
+.products, .cart {
+  display: grid;
+  gap: 15px;
+}
+
+.product, .cart-item {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 15px 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.product button, .cart-item button {
+  background: #2d89ef;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.product button:hover {
+  background: #1b5fc1;
+}
+
+.cart-item button {
+  background: #e74c3c;
+}
+
+.cart-item button:hover {
+  background: #c0392b;
+}
+
+.price {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.empty {
+  text-align: center;
+  color: #777;
+  padding: 15px;
 }
 </style>
 </head>
 <body>
 
-<h2>Produkty</h2>
+<div class="container">
 
-<div class="product">
-  Koszulka – 50 zł
-  <button onclick="addToCart('Koszulka', 50)">Dodaj</button>
+<h2>🛍 Produkty</h2>
+<div class="products">
+  <div class="product">
+    <span><b>Bluza</b> <span class="price">120 zł</span></span>
+    <button onclick="addToCart('Bluza', 120)">Dodaj</button>
+  </div>
+
+  <div class="product">
+    <span><b>Pasek</b> <span class="price">40 zł</span></span>
+    <button onclick="addToCart('Pasek', 40)">Dodaj</button>
+  </div>
+
+  <div class="product">
+    <span><b>Zapalniczka Zippo</b> <span class="price">90 zł</span></span>
+    <button onclick="addToCart('Zapalniczka Zippo', 90)">Dodaj</button>
+  </div>
+
+  <div class="product">
+    <span><b>Rękawiczki</b> <span class="price">35 zł</span></span>
+    <button onclick="addToCart('Rękawiczki', 35)">Dodaj</button>
+  </div>
 </div>
 
-<div class="product">
-  Bluza – 120 zł
-  <button onclick="addToCart('Bluza', 120)">Dodaj</button>
+<h2>🛒 Koszyk</h2>
+<div id="cart" class="cart"></div>
+
 </div>
-
-<hr>
-
-<h2>Koszyk</h2>
-<div id="cart"></div>
 
 <script>
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 function addToCart(name, price) {
   const item = cart.find(p => p.name === name);
-  if (item) item.qty++;
-  else cart.push({ name, price, qty: 1 });
+  if (item) {
+    item.qty++;
+  } else {
+    cart.push({ name, price, qty: 1 });
+  }
   saveCart();
 }
 
@@ -65,14 +129,14 @@ function renderCart() {
   cartDiv.innerHTML = '';
 
   if (cart.length === 0) {
-    cartDiv.innerHTML = 'Koszyk pusty';
+    cartDiv.innerHTML = '<div class="empty">Koszyk jest pusty</div>';
     return;
   }
 
   cart.forEach(item => {
     cartDiv.innerHTML += `
       <div class="cart-item">
-        ${item.name} (${item.qty}x)
+        <span><b>${item.name}</b> (${item.qty}x)</span>
         <button onclick="removeItem('${item.name}')">Usuń</button>
       </div>
     `;
@@ -81,6 +145,10 @@ function renderCart() {
 
 renderCart();
 </script>
+
+</body>
+</html>
+
 
 </body>
 </html>
