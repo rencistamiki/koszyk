@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>Koszyk</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+.product, .cart-item {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 5px 10px;
+}
+</style>
+</head>
+<body>
+
+<h2>Produkty</h2>
+
+<div class="product">
+  Koszulka – 50 zł
+  <button onclick="addToCart('Koszulka', 50)">Dodaj</button>
+</div>
+
+<div class="product">
+  Bluza – 120 zł
+  <button onclick="addToCart('Bluza', 120)">Dodaj</button>
+</div>
+
+<hr>
+
+<h2>Koszyk</h2>
+<div id="cart"></div>
+
+<script>
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+function addToCart(name, price) {
+  const item = cart.find(p => p.name === name);
+  if (item) item.qty++;
+  else cart.push({ name, price, qty: 1 });
+  saveCart();
+}
+
+function removeItem(name) {
+  cart = cart.filter(p => p.name !== name);
+  saveCart();
+}
+
+function saveCart() {
+  localStorage.setItem('cart', JSON.stringify(cart));
+  renderCart();
+}
+
+function renderCart() {
+  const cartDiv = document.getElementById('cart');
+  cartDiv.innerHTML = '';
+
+  if (cart.length === 0) {
+    cartDiv.innerHTML = 'Koszyk pusty';
+    return;
+  }
+
+  cart.forEach(item => {
+    cartDiv.innerHTML += `
+      <div class="cart-item">
+        ${item.name} (${item.qty}x)
+        <button onclick="removeItem('${item.name}')">Usuń</button>
+      </div>
+    `;
+  });
+}
+
+renderCart();
+</script>
+
+</body>
+</html>
