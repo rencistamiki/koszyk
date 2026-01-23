@@ -7,14 +7,12 @@
 <style>
 :root {
   --bg: #f5f6f7;
-  --card: #ffffff;
   --text: #111827;
   --muted: #6b7280;
   --border: #e5e7eb;
-  --accent: #111827;
 }
 
-/* ===== TYPOGRAFIA (PRO) ===== */
+/* ===== TYPOGRAFIA ===== */
 body {
   margin: 0;
   background: var(--bg);
@@ -39,7 +37,7 @@ body {
 
 /* ===== MENU ===== */
 header {
-  background: var(--card);
+  background: #fff;
   border-bottom: 1px solid var(--border);
 }
 
@@ -83,17 +81,19 @@ header {
 }
 
 .product {
-  background: var(--card);
+  background: #fff;
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 18px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
+  text-align: center;
 }
 
 .product h3 {
-  margin: 0;
+  margin: 8px 0 4px;
   font-size: 15px;
   font-weight: 600;
 }
@@ -101,7 +101,7 @@ header {
 .material {
   font-size: 13px;
   color: var(--muted);
-  margin: 8px 0 14px;
+  margin-bottom: 12px;
   line-height: 1.4;
 }
 
@@ -111,23 +111,47 @@ header {
   margin-bottom: 12px;
 }
 
+/* ===== IKONY ===== */
+.product svg {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.product svg:hover {
+  transform: scale(1.1);
+}
+
+/* ===== KOLOROWE PRZYCISKI ===== */
 .product button {
   padding: 9px;
   border-radius: 6px;
   border: none;
-  background: var(--accent);
   color: #fff;
   font-size: 14px;
   cursor: pointer;
+  transition: background 0.3s ease;
 }
 
-.product button:hover {
-  opacity: 0.9;
-}
+/* Kolory dla każdego produktu */
+.product:nth-child(1) button { background: #A3E635; }
+.product:nth-child(1) button:hover { background: #8CC41E; }
+
+.product:nth-child(2) button { background: #3B82F6; }
+.product:nth-child(2) button:hover { background: #2563EB; }
+
+.product:nth-child(3) button { background: #C0C0C0; color: #111; }
+.product:nth-child(3) button:hover { background: #A9A9A9; }
+
+.product:nth-child(4) button { background: #FF7F11; }
+.product:nth-child(4) button:hover { background: #E6730F; }
 
 /* ===== KOSZYK ===== */
 .cart {
   margin-top: 48px;
+  text-align: left;
 }
 
 .cart h3 {
@@ -178,7 +202,6 @@ header {
 <header>
   <div class="container nav">
     <div class="logo">SKLEP</div>
-
     <nav class="menu">
       <div class="menu-item">
         <svg fill="none" viewBox="0 0 24 24">
@@ -186,7 +209,6 @@ header {
         </svg>
         Produkty
       </div>
-
       <div class="menu-item">
         <svg fill="none" viewBox="0 0 24 24">
           <path d="M6 6h15l-1.5 9h-12zM6 6L5 3H2" stroke-width="2"/>
@@ -201,28 +223,44 @@ header {
 
 <section class="products">
 
+  <!-- Bluza limonkowa -->
   <div class="product">
+    <svg viewBox="0 0 64 64" fill="#A3E635" xmlns="http://www.w3.org/2000/svg">
+      <rect x="12" y="12" width="40" height="40" rx="8"/>
+    </svg>
     <h3>Bluza</h3>
-    <div class="material">Materiał: 80% bawełna, 20% poliester. Miękka dzianina o wysokiej gramaturze.</div>
+    <div class="material">Materiał: 80% bawełna, 20% poliester.</div>
     <div class="price">120 zł</div>
     <button onclick="addToCart('Bluza',120)">Dodaj do koszyka</button>
   </div>
 
+  <!-- Pasek niebieski -->
   <div class="product">
+    <svg viewBox="0 0 64 64" fill="#3B82F6" xmlns="http://www.w3.org/2000/svg">
+      <rect x="8" y="28" width="48" height="8" rx="4"/>
+    </svg>
     <h3>Pasek</h3>
-    <div class="material">Materiał: naturalna skóra licowa. Metalowa, szczotkowana klamra.</div>
+    <div class="material">Materiał: skóra licowa z metalową klamrą.</div>
     <div class="price">40 zł</div>
     <button onclick="addToCart('Pasek',40)">Dodaj do koszyka</button>
   </div>
 
+  <!-- Zapalniczka srebrna -->
   <div class="product">
+    <svg viewBox="0 0 64 64" fill="#C0C0C0" xmlns="http://www.w3.org/2000/svg">
+      <rect x="24" y="12" width="16" height="40" rx="4"/>
+    </svg>
     <h3>Zapalniczka Zippo</h3>
-    <div class="material">Materiał: stal nierdzewna. Wiatroodporna konstrukcja, klasyczny mechanizm.</div>
+    <div class="material">Materiał: stal nierdzewna, wiatroodporna.</div>
     <div class="price">90 zł</div>
     <button onclick="addToCart('Zapalniczka Zippo',90)">Dodaj do koszyka</button>
   </div>
 
+  <!-- Rękawiczki jaskrawa pomarańcz -->
   <div class="product">
+    <svg viewBox="0 0 64 64" fill="#FF7F11" xmlns="http://www.w3.org/2000/svg">
+      <rect x="16" y="12" width="32" height="40" rx="6"/>
+    </svg>
     <h3>Rękawiczki</h3>
     <div class="material">Materiał: skóra syntetyczna z podszyciem termoizolacyjnym.</div>
     <div class="price">35 zł</div>
@@ -261,12 +299,10 @@ function save() {
 function render() {
   const el = document.getElementById('cart');
   el.innerHTML = '';
-
   if (cart.length === 0) {
     el.innerHTML = '<div class="empty">Koszyk jest pusty</div>';
     return;
   }
-
   cart.forEach(i => {
     el.innerHTML += `
       <div class="cart-item">
