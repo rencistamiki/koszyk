@@ -270,29 +270,29 @@
       color: #666666;
     }
 
-    /* Styl przycisku ADD TO BAG inspirowany obrazkiem */
+    /* PRZYCISK: ramka z gwiazdek */
     .catalog button {
-      padding: 8px 20px;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      cursor: pointer;
-      border: 2px solid #000;
-      background: #f3f3f3;
       position: relative;
-      overflow: hidden;
+      background: #f3f3f3;
       color: #000;
       font-weight: 600;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      padding: 12px 32px;
+      border: none; /* brak klasycznego border */
     }
 
+    /* poziome linie z gwiazdek */
     .catalog button::before,
     .catalog button::after {
-      content: "✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳";
+      content: "✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳";
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
       font-size: 9px;
-      letter-spacing: 0.1em;
+      white-space: nowrap;
     }
 
     .catalog button::before {
@@ -301,6 +301,25 @@
 
     .catalog button::after {
       bottom: -12px;
+    }
+
+    /* pionowe linie z gwiazdek */
+    .catalog button span.border-left,
+    .catalog button span.border-right {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%) rotate(90deg);
+      font-size: 9px;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .catalog button span.border-left {
+      left: -26px;
+    }
+
+    .catalog button span.border-right {
+      right: -26px;
     }
 
     .catalog button:hover {
@@ -418,7 +437,11 @@
               <span class="catalog-name">Zapalniczka Zippo srebrna .925</span>
               <span class="catalog-meta">Srebrna .925 · Classic · $80.00</span>
             </div>
-            <button data-product-id="zippo">ADD TO BAG</button>
+            <button data-product-id="zippo">
+              <span class="border-left">✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳</span>
+              ADD TO BAG
+              <span class="border-right">✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳</span>
+            </button>
           </div>
 
           <div class="catalog-item">
@@ -429,7 +452,11 @@
               <span class="catalog-name">Bluza zielona bawełniana</span>
               <span class="catalog-meta">Zielona · Bawełna · L · $220.00</span>
             </div>
-            <button data-product-id="hoodie">ADD TO BAG</button>
+            <button data-product-id="hoodie">
+              <span class="border-left">✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳</span>
+              ADD TO BAG
+              <span class="border-right">✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳</span>
+            </button>
           </div>
 
           <div class="catalog-item">
@@ -440,7 +467,11 @@
               <span class="catalog-name">Pasek skórzany niebieski klamra srebrna .925</span>
               <span class="catalog-meta">Skórzany · Niebieski · Klamra .925 · $150.00</span>
             </div>
-            <button data-product-id="belt">ADD TO BAG</button>
+            <button data-product-id="belt">
+              <span class="border-left">✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳</span>
+              ADD TO BAG
+              <span class="border-right">✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳</span>
+            </button>
           </div>
 
           <div class="catalog-item">
@@ -451,7 +482,11 @@
               <span class="catalog-name">Rękawiczki bawełniane pomarańczowe</span>
               <span class="catalog-meta">Bawełna · Pomarańczowe · M · $130.00</span>
             </div>
-            <button data-product-id="gloves">ADD TO BAG</button>
+            <button data-product-id="gloves">
+              <span class="border-left">✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳</span>
+              ADD TO BAG
+              <span class="border-right">✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳</span>
+            </button>
           </div>
         </div>
       </section>
