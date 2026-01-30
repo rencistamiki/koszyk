@@ -270,14 +270,41 @@
       color: #666666;
     }
 
+    /* Styl przycisku ADD TO BAG inspirowany obrazkiem */
     .catalog button {
-      border: 1px solid #111111;
-      background: #ffffff;
-      padding: 6px 12px;
+      padding: 8px 20px;
       font-size: 11px;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.18em;
       cursor: pointer;
+      border: 2px solid #000;
+      background: #f3f3f3;
+      position: relative;
+      overflow: hidden;
+      color: #000;
+      font-weight: 600;
+    }
+
+    .catalog button::before,
+    .catalog button::after {
+      content: "✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳ ✳";
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 9px;
+      letter-spacing: 0.1em;
+    }
+
+    .catalog button::before {
+      top: -12px;
+    }
+
+    .catalog button::after {
+      bottom: -12px;
+    }
+
+    .catalog button:hover {
+      background: #e0e0e0;
     }
 
     .modal-backdrop {
@@ -385,46 +412,46 @@
         <div class="catalog-list">
           <div class="catalog-item">
             <div class="catalog-thumb">
-              <img src="https://lh7-rt.googleusercontent.com/sitesz/AClOY7pBudKVfebT4elCDfNMJgcTkYmV37BQeD1BXvyGeLpY9sDvQMwPAF4e7Y2aUtUr0-2E4gJGpux_Nz0rNVWqh-KAUWtQlMo0VQOHKU53Rabsjv4RZ-Qfe-hFjK46aX2lspDMu5toL6fuO0m16XzxIRlytKmrLf3mbL_1k9ivsEhixRII55915JmTvQkdqgGp?key=bgSmGZlh3pAf8t3P4_l-pg" alt="Zapalniczka Zippo srebrna .925">
+              <img src="https://image2url.com/r2/default/images/1769758306484-07271e2e-e007-44aa-a2b2-93fb256007b9.png" alt="Zapalniczka Zippo srebrna .925">
             </div>
             <div class="catalog-info">
               <span class="catalog-name">Zapalniczka Zippo srebrna .925</span>
               <span class="catalog-meta">Srebrna .925 · Classic · $80.00</span>
             </div>
-            <button data-product-id="zippo">Dodaj</button>
+            <button data-product-id="zippo">ADD TO BAG</button>
           </div>
 
           <div class="catalog-item">
             <div class="catalog-thumb">
-              <img src="https://lh7-rt.googleusercontent.com/sitesz/AClOY7omXQ-jp1ZxN_UGl6u2bqlULacCqtrBovwBqIhYwVxrimiftEiIuvrP3uOUrF3ChMQHAyu_xkOx-Hxy9G7Gsl9A3oihnVKPx9vwkGMUWkqtuOt_qq9rROzgyKVBiAvHLDxM1k5SVrSv21fLGdEng-tLG4Cri5tHBJJTnosL7BKAa7RzrxPaOkM10QwmV9v6?key=bgSmGZlh3pAf8t3P4_l-pg" alt="Bluza zielona bawełniana">
+              <img src="https://image2url.com/r2/default/images/1769758340521-dfc0a1a6-4376-453d-8b4a-b8fb20ade326.png" alt="Bluza zielona bawełniana">
             </div>
             <div class="catalog-info">
               <span class="catalog-name">Bluza zielona bawełniana</span>
               <span class="catalog-meta">Zielona · Bawełna · L · $220.00</span>
             </div>
-            <button data-product-id="hoodie">Dodaj</button>
+            <button data-product-id="hoodie">ADD TO BAG</button>
           </div>
 
           <div class="catalog-item">
             <div class="catalog-thumb">
-              <img src="https://lh7-rt.googleusercontent.com/sitesz/AClOY7qjWsgHwKnU1nUp65SXBWnBVYUVouQoH8SV8RC0jGGtPdfseYKeO_Rvd9JQK3tSldk7aMfBqSkCbiTIykodBhKi1cOcj11x1dqf3oXAo4lnYF_J4_jNBul0oaSItEaos2VLPRh6vtWj5URghStJrnDtgfIjRgDtWcybQ6a0AWM6Ekt1SWqV2w2Raoi-oZWn?key=bgSmGZlh3pAf8t3P4_l-pg" alt="Pasek skórzany niebieski klamra srebrna .925">
+              <img src="https://image2url.com/r2/default/images/1769758324839-b305a9bb-6868-4e83-ba0a-9acbe5a4a469.png" alt="Pasek skórzany niebieski klamra srebrna .925">
             </div>
             <div class="catalog-info">
               <span class="catalog-name">Pasek skórzany niebieski klamra srebrna .925</span>
               <span class="catalog-meta">Skórzany · Niebieski · Klamra .925 · $150.00</span>
             </div>
-            <button data-product-id="belt">Dodaj</button>
+            <button data-product-id="belt">ADD TO BAG</button>
           </div>
 
           <div class="catalog-item">
             <div class="catalog-thumb">
-              <img src="https://lh7-rt.googleusercontent.com/sitesz/AClOY7o9R3Qi1WsHUZ3d_FskMFdzaX3Djbg2FXf1AATz8XRWsj-hD9NGGj3rpGUxwvR278hZ2valk0b2EQDQicZnKSZc-r4-3S2DsAr_mHXU3MimmSBaZm41GiTWbWcBk41MKpr4KC9L0_qWEI0oBkocC9ceB9AU4Lncupomn23uEzgd_wTIXwsaZRggf0SJddI9?key=bgSmGZlh3pAf8t3P4_l-pg" alt="Rękawiczki bawełniane pomarańczowe">
+              <img src="https://image2url.com/r2/default/images/1769758357422-e0ab21ac-19b7-427d-9069-2030ac5dcc0b.png" alt="Rękawiczki bawełniane pomarańczowe">
             </div>
             <div class="catalog-info">
               <span class="catalog-name">Rękawiczki bawełniane pomarańczowe</span>
               <span class="catalog-meta">Bawełna · Pomarańczowe · M · $130.00</span>
             </div>
-            <button data-product-id="gloves">Dodaj</button>
+            <button data-product-id="gloves">ADD TO BAG</button>
           </div>
         </div>
       </section>
@@ -452,7 +479,7 @@
         price: 80,
         finalSale: false,
         image:
-          "https://lh7-rt.googleusercontent.com/sitesz/AClOY7pBudKVfebT4elCDfNMJgcTkYmV37BQeD1BXvyGeLpY9sDvQMwPAF4e7Y2aUtUr0-2E4gJGpux_Nz0rNVWqh-KAUWtQlMo0VQOHKU53Rabsjv4RZ-Qfe-hFjK46aX2lspDMu5toL6fuO0m16XzxIRlytKmrLf3mbL_1k9ivsEhixRII55915JmTvQkdqgGp?key=bgSmGZlh3pAf8t3P4_l-pg"
+          "https://image2url.com/r2/default/images/1769758306484-07271e2e-e007-44aa-a2b2-93fb256007b9.png"
       },
       hoodie: {
         id: "hoodie",
@@ -462,7 +489,7 @@
         price: 220,
         finalSale: false,
         image:
-          "https://lh7-rt.googleusercontent.com/sitesz/AClOY7omXQ-jp1ZxN_UGl6u2bqlULacCqtrBovwBqIhYwVxrimiftEiIuvrP3uOUrF3ChMQHAyu_xkOx-Hxy9G7Gsl9A3oihnVKPx9vwkGMUWkqtuOt_qq9rROzgyKVBiAvHLDxM1k5SVrSv21fLGdEng-tLG4Cri5tHBJJTnosL7BKAa7RzrxPaOkM10QwmV9v6?key=bgSmGZlh3pAf8t3P4_l-pg"
+          "https://image2url.com/r2/default/images/1769758340521-dfc0a1a6-4376-453d-8b4a-b8fb20ade326.png"
       },
       belt: {
         id: "belt",
@@ -472,7 +499,7 @@
         price: 150,
         finalSale: false,
         image:
-          "https://lh7-rt.googleusercontent.com/sitesz/AClOY7qjWsgHwKnU1nUp65SXBWnBVYUVouQoH8SV8RC0jGGtPdfseYKeO_Rvd9JQK3tSldk7aMfBqSkCbiTIykodBhKi1cOcj11x1dqf3oXAo4lnYF_J4_jNBul0oaSItEaos2VLPRh6vtWj5URghStJrnDtgfIjRgDtWcybQ6a0AWM6Ekt1SWqV2w2Raoi-oZWn?key=bgSmGZlh3pAf8t3P4_l-pg"
+          "https://image2url.com/r2/default/images/1769758324839-b305a9bb-6868-4e83-ba0a-9acbe5a4a469.png"
       },
       gloves: {
         id: "gloves",
@@ -482,7 +509,7 @@
         price: 130,
         finalSale: false,
         image:
-          "https://lh7-rt.googleusercontent.com/sitesz/AClOY7o9R3Qi1WsHUZ3d_FskMFdzaX3Djbg2FXf1AATz8XRWsj-hD9NGGj3rpGUxwvR278hZ2valk0b2EQDQicZnKSZc-r4-3S2DsAr_mHXU3MimmSBaZm41GiTWbWcBk41MKpr4KC9L0_qWEI0oBkocC9ceB9AU4Lncupomn23uEzgd_wTIXwsaZRggf0SJddI9?key=bgSmGZlh3pAf8t3P4_l-pg"
+          "https://image2url.com/r2/default/images/1769758357422-e0ab21ac-19b7-427d-9069-2030ac5dcc0b.png"
       }
     };
 
