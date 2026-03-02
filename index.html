@@ -1,640 +1,218 @@
 <!DOCTYPE html>
-<html lang="pl">
+<!DOCTYPE html>
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <title>CH BAG</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mobile Shooter Pro</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { margin:0; overflow:hidden; background:black; touch-action:none; }
 
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #ffffff;
-      color: #111111;
+    #ui {
+      position:absolute;
+      top:10px;
+      left:10px;
+      color:white;
+      font-family:Arial;
+      font-size:20px;
     }
 
-    .page {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+    #joystick {
+      position:absolute;
+      bottom:80px;
+      left:40px;
+      width:120px;
+      height:120px;
+      background:rgba(255,255,255,0.1);
+      border-radius:50%;
     }
 
-    header {
-      padding: 16px 40px 8px;
-      text-align: center;
-      border-bottom: 1px solid #e3e3e3;
+    #stick {
+      position:absolute;
+      width:60px;
+      height:60px;
+      background:rgba(255,255,255,0.5);
+      border-radius:50%;
+      top:30px;
+      left:30px;
     }
 
-    header .logo-img {
-      height: 70px;
-      width: auto;
-      display: block;
-      margin: 0 auto;
+    #shootBtn {
+      position:absolute;
+      bottom:100px;
+      right:50px;
+      width:80px;
+      height:80px;
+      background:red;
+      border-radius:50%;
+      opacity:0.7;
     }
 
-    main {
-      flex: 1;
-      padding: 32px 40px 60px;
-      display: flex;
-      flex-direction: column;
-      gap: 32px;
-    }
-
-    .content {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 40px;
-      align-items: flex-start;
-    }
-
-    .bag {
-      flex: 2;
-      min-width: 260px;
-    }
-
-    .bag-title {
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 20px;
-      letter-spacing: 0.08em;
-    }
-
-    .product-row {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-      padding: 20px 0;
-      border-top: 1px solid #e3e3e3;
-      border-bottom: 1px solid #e3e3e3;
-    }
-
-    .product-image {
-      width: 160px;
-      height: 160px;
-      border: 1px solid #dddddd;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #ffffff;
-      overflow: hidden;
-    }
-
-    .product-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .product-details {
-      flex: 2;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      font-size: 13px;
-    }
-
-    .product-name {
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .product-meta span {
-      display: inline-block;
-      margin-right: 16px;
-    }
-
-    .final-sale {
-      color: #a00000;
-      text-transform: uppercase;
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      margin-top: 4px;
-    }
-
-    .product-price {
-      flex: 1;
-      text-align: right;
-      font-size: 14px;
-    }
-
-    .qty-wrapper {
-      display: inline-flex;
-      align-items: center;
-      border: 1px solid #cccccc;
-      border-radius: 2px;
-      overflow: hidden;
-      margin-left: 12px;
-    }
-
-    .qty-btn {
-      padding: 2px 8px;
-      border: none;
-      background: #f5f5f5;
-      cursor: pointer;
-      font-size: 12px;
-    }
-
-    .qty-value {
-      padding: 4px 10px;
-      min-width: 26px;
-      text-align: center;
-      font-size: 13px;
-    }
-
-    .remove-btn {
-      margin-left: 16px;
-      border: none;
-      background: none;
-      color: #777777;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      cursor: pointer;
-    }
-
-    .summary {
-      flex: 1.2;
-      min-width: 260px;
-      border-left: 1px solid #e3e3e3;
-      padding-left: 32px;
-      font-size: 13px;
-    }
-
-    .summary-row {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 8px;
-    }
-
-    .summary-row.total {
-      margin-top: 14px;
-      padding-top: 10px;
-      border-top: 1px solid #111111;
-      font-weight: 600;
-    }
-
-    .checkout-btn {
-      width: 100%;
-      margin-top: 18px;
-      padding: 12px 16px;
-      border: 1px solid #111111;
-      background: #111111;
-      color: #ffffff;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      font-size: 12px;
-      cursor: pointer;
-      transition: background 0.2s, color 0.2s;
-    }
-
-    .checkout-btn:hover {
-      background: #ffffff;
-      color: #111111;
-    }
-
-    .notice {
-      margin-top: 18px;
-      font-size: 11px;
-      color: #666666;
-      line-height: 1.4;
-    }
-
-    .continue-link {
-      display: inline-block;
-      margin-top: 14px;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      text-decoration: underline;
-      cursor: pointer;
-    }
-
-    .catalog {
-      margin-top: 8px;
-      font-size: 13px;
-    }
-
-    .catalog h2 {
-      font-size: 14px;
-      margin-bottom: 8px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .catalog-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 16px;
-    }
-
-    .catalog-item {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      border: 1px solid #e3e3e3;
-      padding: 8px;
-    }
-
-    .catalog-thumb {
-      width: 140px;
-      height: 140px;
-      border: 1px solid #dddddd;
-      overflow: hidden;
-      flex-shrink: 0;
-      background: #ffffff;
-    }
-
-    .catalog-thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .catalog-info {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .catalog-name {
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .catalog-meta {
-      font-size: 11px;
-      color: #666666;
-    }
-
-    /* PROSTE PRZYCISKI BEZ GWIAZDEK */
-    .catalog button {
-      border: 1px solid #111111;
-      background: #ffffff;
-      padding: 8px 20px;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      cursor: pointer;
-      color: #111111;
-      font-weight: 600;
-      transition: background 0.2s, color 0.2s;
-    }
-
-    .catalog button:hover {
-      background: #111111;
-      color: #ffffff;
-    }
-
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.45);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-    }
-
-    .modal {
-      background: #ffffff;
-      padding: 24px 26px;
-      max-width: 360px;
-      width: 90%;
-      border-radius: 4px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-      text-align: center;
-    }
-
-    .modal-title {
-      font-size: 16px;
-      margin-bottom: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-    }
-
-    .modal-text {
-      font-size: 13px;
-      color: #555555;
-      margin-bottom: 18px;
-    }
-
-    .modal button {
-      border: 1px solid #111111;
-      background: #111111;
-      color: #ffffff;
-      padding: 8px 16px;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      cursor: pointer;
-    }
-
-    @media (max-width: 900px) {
-      header { padding: 12px 18px 4px; }
-      main { padding: 22px 18px 40px; }
-      .summary {
-        border-left: none;
-        border-top: 1px solid #e3e3e3;
-        padding-left: 0;
-        padding-top: 18px;
-      }
+    #gameOver {
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      color:white;
+      font-size:40px;
+      display:none;
     }
   </style>
 </head>
 <body>
-  <div class="page">
-    <header>
-      <img
-        class="logo-img"
-        src="https://1000logos.net/wp-content/uploads/2024/12/Chrome-Hearts-Emblem.png"
-        alt="Chrome Hearts Emblem"
-      />
-    </header>
 
-    <main>
-      <div class="content">
-        <section class="bag">
-          <div class="bag-title">BAG</div>
-          <div id="cart-container"></div>
-        </section>
+<div id="ui">
+  Score: <span id="score">0</span><br>
+  Health: <span id="health">100</span>
+</div>
 
-        <aside class="summary">
-          <div class="summary-row">
-            <span>Subtotal</span>
-            <span id="summary-subtotal">$0.00</span>
-          </div>
-          <div class="summary-row">
-            <span>Shipping</span>
-            <span id="summary-shipping">$0.00</span>
-          </div>
-          <div class="summary-row">
-            <span>Sales Tax</span>
-            <span id="summary-tax">$0.00</span>
-          </div>
-          <div class="summary-row total">
-            <span>Estimated total</span>
-            <span id="summary-total">USD $0.00</span>
-          </div>
-          <button class="checkout-btn" id="checkout-btn">Płatność</button>
+<div id="gameOver">GAME OVER</div>
 
-          <p class="notice">
-            Kontynuując, akceptujesz regulamin oraz politykę zwrotów. Strona ma
-            charakter demonstracyjny.
-          </p>
-          <span class="continue-link">Continue Shopping</span>
-        </aside>
-      </div>
+<div id="joystick"><div id="stick"></div></div>
+<div id="shootBtn"></div>
 
-      <section class="catalog">
-        <h2>Produkty</h2>
-        <div class="catalog-list">
-          <div class="catalog-item">
-            <div class="catalog-thumb">
-              <img src="https://image2url.com/r2/default/images/1769758306484-07271e2e-e007-44aa-a2b2-93fb256007b9.png" alt="Zapalniczka Zippo srebrna .925">
-            </div>
-            <div class="catalog-info">
-              <span class="catalog-name">Zapalniczka Zippo srebrna .925</span>
-              <span class="catalog-meta">Srebrna .925 · Classic · $80.00</span>
-            </div>
-            <button data-product-id="zippo">ADD TO BAG</button>
-          </div>
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
 
-          <div class="catalog-item">
-            <div class="catalog-thumb">
-              <img src="https://image2url.com/r2/default/images/1769758340521-dfc0a1a6-4376-453d-8b4a-b8fb20ade326.png" alt="Bluza zielona bawełniana">
-            </div>
-            <div class="catalog-info">
-              <span class="catalog-name">Bluza zielona bawełniana</span>
-              <span class="catalog-meta">Zielona · Bawełna · L · $220.00</span>
-            </div>
-            <button data-product-id="hoodie">ADD TO BAG</button>
-          </div>
+<script>
+let scene = new THREE.Scene();
+let camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+let renderer = new THREE.WebGLRenderer({antialias:true});
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
 
-          <div class="catalog-item">
-            <div class="catalog-thumb">
-              <img src="https://image2url.com/r2/default/images/1769758324839-b305a9bb-6868-4e83-ba0a-9acbe5a4a469.png" alt="Pasek skórzany niebieski klamra srebrna .925">
-            </div>
-            <div class="catalog-info">
-              <span class="catalog-name">Pasek skórzany niebieski klamra srebrna .925</span>
-              <span class="catalog-meta">Skórzany · Niebieski · Klamra .925 · $150.00</span>
-            </div>
-            <button data-product-id="belt">ADD TO BAG</button>
-          </div>
+// Light
+let light = new THREE.DirectionalLight(0xffffff,1);
+light.position.set(5,10,7);
+scene.add(light);
 
-          <div class="catalog-item">
-            <div class="catalog-thumb">
-              <img src="https://image2url.com/r2/default/images/1769758357422-e0ab21ac-19b7-427d-9069-2030ac5dcc0b.png" alt="Rękawiczki bawełniane pomarańczowe">
-            </div>
-            <div class="catalog-info">
-              <span class="catalog-name">Rękawiczki bawełniane pomarańczowe</span>
-              <span class="catalog-meta">Bawełna · Pomarańczowe · M · $130.00</span>
-            </div>
-            <button data-product-id="gloves">ADD TO BAG</button>
-          </div>
-        </div>
-      </section>
-    </main>
-  </div>
+// Ground
+let ground = new THREE.Mesh(
+  new THREE.PlaneGeometry(200,200),
+  new THREE.MeshStandardMaterial({color:0x444444})
+);
+ground.rotation.x = -Math.PI/2;
+scene.add(ground);
 
-  <!-- Modal: strona w budowie -->
-  <div class="modal-backdrop" id="modal">
-    <div class="modal">
-      <div class="modal-title">Payment Offline</div>
-      <p class="modal-text">
-        Moduł płatności nie jest jeszcze gotowy. To tylko wersja demo koszyka.
-      </p>
-      <button id="modal-close">OK</button>
-    </div>
-  </div>
+// Player
+let player = new THREE.Mesh(
+  new THREE.BoxGeometry(1,2,1),
+  new THREE.MeshStandardMaterial({color:0x00ff00})
+);
+player.position.y = 1;
+scene.add(player);
 
-  <script>
-    const PRODUCTS = {
-      zippo: {
-        id: "zippo",
-        name: "Zapalniczka Zippo srebrna .925",
-        color: "SREBRNA .925",
-        size: "CLASSIC",
-        price: 80,
-        finalSale: false,
-        image:
-          "https://image2url.com/r2/default/images/1769758306484-07271e2e-e007-44aa-a2b2-93fb256007b9.png"
-      },
-      hoodie: {
-        id: "hoodie",
-        name: "Bluza zielona bawełniana",
-        color: "ZIELONA BAWEŁNIANA",
-        size: "L",
-        price: 220,
-        finalSale: false,
-        image:
-          "https://image2url.com/r2/default/images/1769758340521-dfc0a1a6-4376-453d-8b4a-b8fb20ade326.png"
-      },
-      belt: {
-        id: "belt",
-        name: "Pasek skórzany niebieski klamra srebrna .925",
-        color: "SKÓRZANY NIEBIESKI",
-        size: "KLAMRA .925",
-        price: 150,
-        finalSale: false,
-        image:
-          "https://image2url.com/r2/default/images/1769758324839-b305a9bb-6868-4e83-ba0a-9acbe5a4a469.png"
-      },
-      gloves: {
-        id: "gloves",
-        name: "Rękawiczki bawełniane pomarańczowe",
-        color: "BAWEŁNIANE POMARAŃCZOWE",
-        size: "M",
-        price: 130,
-        finalSale: false,
-        image:
-          "https://image2url.com/r2/default/images/1769758357422-e0ab21ac-19b7-427d-9069-2030ac5dcc0b.png"
-      }
-    };
+// Variables
+let score = 0;
+let health = 100;
+let bullets = [];
+let enemies = [];
+let currentAngle = 0;
+let cameraDistance = 8;
 
-    let cart = [];
+// Spawn Enemy
+function spawnEnemy(){
+  let enemy = new THREE.Mesh(
+    new THREE.BoxGeometry(1,2,1),
+    new THREE.MeshStandardMaterial({color:0xff0000})
+  );
+  enemy.position.set((Math.random()-0.5)*50,1,(Math.random()-0.5)*50);
+  scene.add(enemy);
+  enemies.push(enemy);
+}
+for(let i=0;i<6;i++) spawnEnemy();
 
-    function formatCurrency(amount) {
-      return "$" + amount.toFixed(2);
-    }
+// Joystick
+let joystick = document.getElementById("joystick");
+let stick = document.getElementById("stick");
+let moveX=0, moveY=0;
 
-    function renderCart() {
-      const container = document.getElementById("cart-container");
-      container.innerHTML = "";
+joystick.addEventListener("touchmove", e=>{
+  let rect = joystick.getBoundingClientRect();
+  let touch = e.touches[0];
+  let x = touch.clientX - rect.left - 60;
+  let y = touch.clientY - rect.top - 60;
+  let dist = Math.sqrt(x*x+y*y);
+  if(dist>50){ x*=50/dist; y*=50/dist; }
+  stick.style.left=(x+60-30)+"px";
+  stick.style.top=(y+60-30)+"px";
+  moveX=x/50; moveY=y/50;
+});
 
-      if (cart.length === 0) {
-        container.innerHTML =
-          '<p style="font-size:13px;color:#777;">Twój koszyk jest pusty.</p>';
-        updateSummary();
-        return;
-      }
+joystick.addEventListener("touchend", ()=>{
+  stick.style.left="30px";
+  stick.style.top="30px";
+  moveX=0; moveY=0;
+});
 
-      cart.forEach((item) => {
-        const row = document.createElement("div");
-        row.className = "product-row";
+// Shoot
+document.getElementById("shootBtn").addEventListener("touchstart", ()=>{
+  let bullet = new THREE.Mesh(
+    new THREE.SphereGeometry(0.2,8,8),
+    new THREE.MeshBasicMaterial({color:0xffff00})
+  );
+  bullet.position.copy(player.position);
+  bullet.direction = new THREE.Vector3(
+    Math.sin(currentAngle),0,Math.cos(currentAngle)
+  );
+  scene.add(bullet);
+  bullets.push(bullet);
+});
 
-        row.innerHTML = `
-          <div class="product-image">
-            <img src="${item.image}" alt="${item.name}">
-          </div>
-          <div class="product-details">
-            <div class="product-name">${item.name}</div>
-            <div class="product-meta">
-              <span>Kolor / materiał: ${item.color}</span>
-              <span>Rozmiar / typ: ${item.size}</span>
-            </div>
-            ${item.finalSale ? '<div class="final-sale">FINAL SALE</div>' : ""}
-          </div>
-          <div class="product-price">
-            <span>${formatCurrency(item.price)}</span>
-            <div class="qty-wrapper">
-              <button class="qty-btn" data-action="minus" data-id="${item.id}">-</button>
-              <span class="qty-value">${item.qty}</span>
-              <button class="qty-btn" data-action="plus" data-id="${item.id}">+</button>
-            </div>
-            <button class="remove-btn" data-remove="${item.id}">Remove</button>
-          </div>
-        `;
+// Game Loop
+function animate(){
+  requestAnimationFrame(animate);
 
-        container.appendChild(row);
-      });
+  if(health<=0){
+    document.getElementById("gameOver").style.display="block";
+    return;
+  }
 
-      container.querySelectorAll(".qty-btn").forEach((btn) => {
-        btn.addEventListener("click", (e) => {
-          const id = e.currentTarget.getAttribute("data-id");
-          const action = e.currentTarget.getAttribute("data-action");
-          changeQty(id, action === "plus" ? 1 : -1);
-        });
-      });
+  let speed = 0.15;
 
-      container.querySelectorAll(".remove-btn").forEach((btn) => {
-        btn.addEventListener("click", (e) => {
-          const id = e.currentTarget.getAttribute("data-remove");
-          removeFromCart(id);
-        });
-      });
+  // Move Player
+  if(moveX||moveY){
+    currentAngle = Math.atan2(moveX,moveY);
+    player.rotation.y=currentAngle;
+    player.position.x+=Math.sin(currentAngle)*speed;
+    player.position.z+=Math.cos(currentAngle)*speed;
+  }
 
-      updateSummary();
-    }
+  // Move Bullets
+  bullets.forEach((b,i)=>{
+    b.position.addScaledVector(b.direction,0.5);
 
-    function changeQty(id, delta) {
-      const item = cart.find((p) => p.id === id);
-      if (!item) return;
-      item.qty += delta;
-      if (item.qty <= 0) {
-        cart = cart.filter((p) => p.id !== id);
-      }
-      renderCart();
-    }
-
-    function addToCart(productId) {
-      const product = PRODUCTS[productId];
-      if (!product) return;
-
-      const existing = cart.find((item) => item.id === product.id);
-      if (existing) {
-        existing.qty += 1;
-      } else {
-        cart.push({ ...product, qty: 1 });
-      }
-      renderCart();
-    }
-
-    function removeFromCart(productId) {
-      cart = cart.filter((item) => item.id !== productId);
-      renderCart();
-    }
-
-    function updateSummary() {
-      const subtotal = cart.reduce(
-        (sum, item) => sum + item.price * item.qty,
-        0
-      );
-      const shipping = subtotal > 0 ? 15 : 0;
-      const tax = 0;
-      const total = subtotal + shipping + tax;
-
-      document.getElementById("summary-subtotal").textContent =
-        formatCurrency(subtotal);
-      document.getElementById("summary-shipping").textContent =
-        formatCurrency(shipping);
-      document.getElementById("summary-tax").textContent = formatCurrency(tax);
-      document.getElementById(
-        "summary-total"
-      ).textContent = `USD ${formatCurrency(total)}`;
-    }
-
-    document
-      .querySelectorAll('.catalog button[data-product-id]')
-      .forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const id = btn.getAttribute("data-product-id");
-          addToCart(id);
-        });
-      });
-
-    const modal = document.getElementById("modal");
-    const checkoutBtn = document.getElementById("checkout-btn");
-    const modalClose = document.getElementById("modal-close");
-
-    checkoutBtn.addEventListener("click", () => {
-      modal.style.display = "flex";
-    });
-
-    modalClose.addEventListener("click", () => {
-      modal.style.display = "none";
-    });
-
-    modal.addEventListener("click", (e) => {
-      if (e.target === modal) {
-        modal.style.display = "none";
+    enemies.forEach((e,ei)=>{
+      if(b.position.distanceTo(e.position)<1){
+        scene.remove(e);
+        enemies.splice(ei,1);
+        scene.remove(b);
+        bullets.splice(i,1);
+        spawnEnemy();
+        score+=10;
+        document.getElementById("score").innerText=score;
       }
     });
+  });
 
-    renderCart();
-  </script>
+  // Enemy AI
+  enemies.forEach(e=>{
+    let dir = new THREE.Vector3().subVectors(player.position,e.position).normalize();
+    e.position.addScaledVector(dir,0.05);
+
+    if(e.position.distanceTo(player.position)<1.5){
+      health-=0.3;
+      document.getElementById("health").innerText=Math.floor(health);
+    }
+  });
+
+  // Camera Follow
+  camera.position.x=player.position.x-Math.sin(currentAngle)*cameraDistance;
+  camera.position.z=player.position.z-Math.cos(currentAngle)*cameraDistance;
+  camera.position.y=player.position.y+5;
+  camera.lookAt(player.position);
+
+  renderer.render(scene,camera);
+}
+animate();
+</script>
 </body>
 </html>
